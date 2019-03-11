@@ -1,0 +1,381 @@
+﻿@using obajans.Models
+@model ortakmodel
+@{
+
+    int s1 = 0, s2 = 0, s3 = 0, s4 = 0, s5 = 0, s6 = 0, snow = 0;
+    string b1 = "disabled"; string b2 = "disabled"; string b3 = "disabled"; string b4 = "disabled"; string b5 = "disabled"; string b6 = "disabled";
+
+    int[,] words = (int[,])ViewData["Pagenum"];
+    for (int i = 0; i < words.Length / 2; i++)
+    {
+        if (i == 0)
+        {
+            s1 = words[i, 0];
+            if (words[i, 1] == 1)
+            {
+                b1 = "";
+            }
+        }
+        if (i == 1)
+        {
+            s2 = words[i, 0];
+            if (words[i, 1] == 1)
+            {
+                b2 = "";
+            }
+        }
+        if (i == 2)
+        {
+            s3 = words[i, 0];
+            if (words[i, 1] == 1)
+            {
+                b3 = "";
+            }
+            snow = s3 + 1;
+        }
+        if (i == 3)
+        {
+            s4 = words[i, 0];
+            if (words[i, 1] == 1)
+            {
+                b4 = "";
+            }
+        }
+        if (i == 4)
+        {
+            s5 = words[i, 0];
+            if (words[i, 1] == 1)
+            {
+                b5 = "";
+            }
+        }
+        if (i == 5)
+        {
+            s6 = words[i, 0];
+            if (words[i, 1] == 1)
+            {
+                b6 = "";
+            }
+        }
+    }
+    string category = ViewData["Category"].ToString();
+    if (category == "hepsi")
+    {
+        category = "";
+        if (snow == 1)
+        {
+            ViewBag.title = category + " Habermiyok.com";
+        }
+        else
+        {
+            ViewBag.Title = "Habermiyok.com - " + @snow.ToString();
+        }
+    }
+    else
+    {
+        if (snow == 1)
+        {
+            ViewBag.title = category + " Habermiyok.com";
+        }
+        else
+        {
+            ViewBag.Title = "Habermiyok.com - " + @snow.ToString();
+        }
+        category = category + "/";
+    }
+
+
+}
+
+   
+  
+
+ <!-- Bootstrap -->
+<link type="text/css" rel="stylesheet" href="~/Content/css/bootstrap.min.css" />
+
+<!-- Owl Carousel -->
+<link type="text/css" rel="stylesheet" href="~/Content/css/owl.carousel.css" />
+<link type="text/css" rel="stylesheet" href="~/Content/css/owl.theme.default.css" />
+
+<!-- Font Awesome Icon -->
+<link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
+
+<!-- Custom stlylesheet -->
+<link type="text/css" rel="stylesheet" href="~/Content/css/style.css" />
+<!-- Owl Carousel 1 -->
+<div id="owl-carousel-1" class="owl-carousel owl-theme center-owl-nav"style="height: 100%; width: 100%;">
+    @{
+        if (snow==1)
+        {
+
+        int count = 0;
+        foreach (var item in Model.haber)
+        {
+            if (count < 7)
+            {
+                count++;
+                Uri myUri = new Uri(item.originnew);
+                string host = myUri.Host;
+                string kaynak = "https://logo.clearbit.com/" + host;
+                                    <!-- ARTICLE -->
+                <div>
+                    <article class="article thumb-article" style="background-color:black" itemscope itemtype="http://schema.org/NewsArticle">
+                        <div class="article-img" style="display: block;margin-left: auto;margin-right: auto; width:532px; height:380px;  ">
+                            <img src="@item.resimuri" itemprop="image" href="~/haber/@item.id"  />
+                        </div>
+                        <div class="article-body">
+                            <ul class="article-info">
+                                <li class="article-category"><a itemprop="articleSection">@item.konu</a></li>
+                                <li class="article-type" ><img src="@kaynak" itemprop="publisher"  /></li>
+                                <li style="color:whitesmoke" itemprop="author" > @item.kaynak</li>
+                            </ul>
+                            <h4 class="article-title"><a href="~/haber/@item.id" itemprop="url">@item.baslik</a></h4>
+                            <ul class="article-meta">
+                                <li itemprop="datePublished"><i class="fa fa-clock-o"></i> @item.yayıntarihi</li>
+                                <li  href="~/haber/@item.id" ><i class="fal fa-sign-out-alt" style="font-size:small" itemprop="description"></i><a href="~/haber/@item.id"  style="color:whitesmoke">@item.aciklama</a></li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+                                <!-- /ARTICLE -->
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+    }
+</div>
+<!-- /Owl Carousel 1 -->
+<!-- SECTION -->
+<div class="section">
+    <!-- CONTAINER -->
+    <div class="container">
+        <!-- ROW -->
+        <div class="row">
+            <!-- Main Column -->
+            <div class="col-md-12">
+                @{
+                    if (snow ==1)
+                    {
+                         <!-- section title -->
+                        <div class="section-title">
+                            <h2 class="title">Yeni haberler</h2>
+                        </div>
+                <!-- /section title -->
+                    }
+                }
+               
+                <!-- Tab content -->
+                <div class="tab-content">
+                    <!-- tab1 -->
+                    <div id="tab1" class="tab-pane fade in active">
+                        <!-- row -->
+                        <div class="row">
+                            @{
+                                int count12 = 0;
+                                if (snow != 1)
+                                {
+                                    foreach (var item in Model.haber)
+                                    {
+                                        if (count12 < 4)
+                                        {
+                                            count12++;
+                                            Uri myUri = new Uri(item.originnew);
+                                            string host = myUri.Host;
+                                            string kaynak = "https://logo.clearbit.com/" + host;
+                                             <!-- Column 1 -->
+                                            <div class="col-md-3 col-sm-6">
+
+                                                <!-- ARTICLE -->
+                                                <article class="article">
+                                                    <div class="article-img">
+                                                        <a href="~/haber/@item.id">
+                                                            <img src="@item.resimuri" alt="">
+                                                        </a>
+                                                        <ul class="article-info">
+                                                            <li class="article-type"><img src="@kaynak" /></li>
+
+                                                        </ul>
+                                                    </div>
+                                                    <div class="article-body">
+                                                        <h4 class="article-title"><a href="~/haber/@item.id">@item.baslik</a></h4>
+                                                        <ul class="article-meta">
+                                                            <li><i class="fa fa-clock-o"></i> @item.yayıntarihi</li>
+                                                            <li><i class="fal fa-sign-out-alt" style="font-size:small"></i><p style="color:black">@item.aciklama</p></li>
+                                                        </ul>
+                                                    </div>
+                                                </article>
+                                                <!-- /ARTICLE -->
+
+                                            </div>
+                            <!-- /Column 1 -->
+                                        }
+                                    }
+                                }
+                            }
+
+                        </div>
+
+                        <div class="row">
+
+
+                            @{
+                              
+                                int count1 = 0;
+                                foreach (var item in Model.haber.Skip(7))
+                                {
+
+                                    if (count1 < 4)
+                                    {
+                                        count1++;
+                                        Uri myUri = new Uri(item.originnew);
+                                        string host = myUri.Host;
+                                        string kaynak = "https://logo.clearbit.com/" + host;
+                                         <!-- Column 1 -->
+                                        <div class="col-md-3 col-sm-6">
+
+                                            <!-- ARTICLE -->
+                                            <article class="article">
+                                                <div class="article-img">
+                                                    <a href="~/haber/@item.id">
+                                                        <img src="@item.resimuri" alt="">
+                                                    </a>
+                                                    <ul class="article-info">
+                                                        <li class="article-type"><img src="@kaynak" /></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="article-body">
+                                                    <h4 class="article-title"><a href="~/haber/@item.id">@item.baslik</a></h4>
+                                                    <ul class="article-meta">
+                                                        <li><i class="fa fa-clock-o"></i> @item.yayıntarihi</li>
+                                                        <li ><i class="fal fa-sign-out-alt" style="font-size:small"></i><p style="color:black">@item.aciklama</p></li>
+                                                    </ul>
+                                                </div>
+                                            </article>
+                                            <!-- /ARTICLE -->
+                                           
+                                        </div>
+                            <!-- /Column 1 -->
+                                        }
+                                    }
+                                 }
+                        </div>
+                        <!-- /row -->
+                        <!-- row -->
+                        <div class="row">
+                            <!-- Column 1 -->
+                            
+                            @foreach (var item in Model.haber.Skip(11))
+                            {
+                                
+                                int count2 = 0;
+                                if (count2 < 3)
+                                {
+                                    <div class="col-md-4 col-sm-6">
+                                        <!-- ARTICLE -->
+                                        <article class="article widget-article">
+                                            <div class="article-img">
+                                                <a href="~/haber/@item.id">
+                                                    <img src="@item.resimuri" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="article-body">
+                                                <h4 class="article-title"><a href="~/haber/@item.id">@item.baslik</a></h4>
+                                                <ul class="article-meta">
+                                                    <li><i class="fa fa-clock-o"></i> @item.yayıntarihi</li>
+                                                    <li><i class="fal fa-sign-out-alt" style="font-size:small ;"></i><div style="color:#EF233C;">@item.aciklama</div></li>
+                                                </ul>
+
+                                            </div>
+
+                                        </article>   
+                                        <!-- /ARTICLE -->
+                                    </div>
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                          
+                        </div>
+                        <!-- /row -->
+                        @{
+                            if (snow != 1)
+                            {
+                                 <!-- row -->
+                                <div class="row">
+                                    <!-- Column 1 -->
+
+                                    @foreach (var item in Model.haber.Skip(4).Take(3))
+                                    {
+
+                                        
+                                            <div class="col-md-4 col-sm-6">
+                                                <!-- ARTICLE -->
+                                                <article class="article widget-article">
+                                                    <div class="article-img">
+                                                        <a href="~/haber/@item.id">
+                                                            <img src="@item.resimuri" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="article-body">
+                                                        <h4 class="article-title"><a href="~/haber/@item.id">@item.baslik</a></h4>
+                                                        <ul class="article-meta">
+                                                            <li><i class="fa fa-clock-o"></i> @item.yayıntarihi</li>
+                                                            <li><i class="fal fa-sign-out-alt" style="font-size:small ;"></i><div style="color:crimson;">@item.aciklama</div></li>
+                                                        </ul>
+
+                                                    </div>
+
+                                                </article>
+                                                <!-- /ARTICLE -->
+                                            </div>
+                                       
+                                    }
+
+                                </div>
+                        <!-- /row -->
+                            }
+                        }
+                    </div>
+                    <!-- /tab1 -->
+                </div>
+                <!-- /tab content -->
+            </div>
+            <!-- /Main Column -->
+        </div>
+        <!-- /ROW -->
+    </div>
+    <!-- /CONTAINER -->
+   
+</div>
+<!-- /SECTION -->
+
+<div class="article-pagination">
+    <ul>
+        @{if (b1 != "disabled")  { <li class="@b1"><a href="~/@category@s1">@s1 ...</a></li>  }
+            if (b2 != "disabled") { <li class="@b2"><a href="~/@category@s2">@s2 ..</a></li>  }
+            if (b3 != "disabled")  { <li class="@b3"><a href="~/@category@s3">@s3</a></li>  }
+            <li class="active"><a>@snow </a></li>
+            if (b4 != "disabled")
+            {
+        <li class="@b4"><a href="~/@category@s4">@s4</a></li>  }
+            if (b5 != "disabled")
+            {
+        <li class="@b5"><a href="~/@category@s5">.. @s5</a></li>  }
+            if (b6 != "disabled")
+            {
+        <li class="@b6"><a href="~/@category@s6">... @s6</a></li>  }
+        }
+     
+    </ul>
+</div>
+    
+           
+
+   

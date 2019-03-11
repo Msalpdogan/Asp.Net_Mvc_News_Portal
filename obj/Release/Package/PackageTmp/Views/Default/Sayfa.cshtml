@@ -1,0 +1,112 @@
+﻿@using obajans.Models
+@model ortakmodel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>TITLE</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+   
+
+</head>
+<body>
+
+    <header>
+        <div class="container-fluid position-relative no-side-padding">
+
+            <a href="#" class="logo"><img src="~/Content/images/logo.png" alt="Logo Image"></a>
+
+            <div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
+
+            <ul class="main-menu visible-on-click" id="main-menu">
+                <li><a href="~/">Anasayfa</a></li>
+                <li><a href="~/icerik/hakkimizda">Hakkımızda</a></li>
+            </ul><!-- main-menu -->
+        </div><!-- conatiner -->
+    </header>
+
+    <section class="blog-area section">
+        <div class="container">
+
+            <div class="row">
+
+                @foreach (var item in Model.haber)
+            {
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100">
+                            <div class="single-post post-style-1">
+
+                                <div class="blog-image"><img src="@item.resimuri" alt="Blog Image"></div>
+
+                                <a class="avatar"><img src="@item.kaynak" alt="Profile Image"></a>
+
+                                <div class="blog-info">
+
+                                    <h4 class="title"><a href="./haber/@item.id">@item.baslik</a></h4>
+                                    <h6 class="title"> @item.aciklama</h6>
+                                </div><!-- blog-info -->
+                            </div><!-- single-post -->
+                        </div><!-- card -->
+                    </div><!-- col-lg-4 col-md-6 -->
+                }
+
+
+
+
+
+
+            </div><!-- row -->
+
+            <a class="load-more-btn" href="#"><b>Daha Fazlası</b></a>
+
+        </div><!-- container -->
+    </section><!-- section -->
+
+
+    <footer>
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-section">
+
+                        <a class="logo" href="#"><img src="~/Content/images/logo.png" alt="Logo Image"></a>
+                        <p class="copyright">Obajans @DateTime.Now.Year.ToString() . All rights reserved.</p>
+                        <p class="copyright">Designed by Msalpdogan</p>
+                        <ul class="icons">
+                            <li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+                            <li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+                            <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+                            <li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+                            <li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+                        </ul>
+
+                    </div><!-- footer-section -->
+                </div><!-- col-lg-4 col-md-6 -->
+
+                <div class="col-lg-4 col-md-4">
+                    <div class="footer-section">
+
+                        <p class="copyright">Tavsiye ve şikayetler için mail ile ulaşınız.</p>
+                        <p class="copyright">msalpdogan@gmail.com</p>
+
+                    </div><!-- footer-section -->
+                </div><!-- col-lg-4 col-md-6 -->
+
+            </div><!-- row -->
+        </div><!-- container -->
+    </footer>
+
+
+    <!-- SCIPTS -->
+
+
+</body>
+</html>

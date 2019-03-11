@@ -1,0 +1,262 @@
+﻿@model obajans.Models.haber
+@{
+
+
+    int first = new obajans.Models.Element().GetFirstElement();
+    int last = new obajans.Models.Element().GetLastElement();
+
+    ViewBag.title = Model.baslik.ToString();
+    Uri myUri = new Uri(Model.originnew);
+    string host = myUri.Host;
+    string twittersite = "@Habermiyok";
+    string kaynak = "https://logo.clearbit.com/" + host;
+    string urinow = "http://www.habermiyok.com/haber/" + Model.id;
+    string whatsapp= "https://wa.me/?text=" + Model.baslik.Replace("ü", "u").Replace("İ", "I") + " --- "+  Server.UrlEncode("http://www.habermiyok.com/haber/" + Html.DisplayFor(model => model.id).ToString()+" Daha Fazla haber için www.habermiyok.com");
+    string twitter = "http://www.twitter.com/intent/tweet?url=" + "http://www.habermiyok.com/haber/"+Model.id;
+    string facebook = "https://www.facebook.com/sharer/sharer.php?u=" + Server.UrlEncode("http://www.habermiyok.com/haber/" + Html.DisplayFor(model => model.id).ToString())+ "&amp;src=sdkpreparse";
+    string google= "https://plus.google.com/share?url=" + "http://www.habermiyok.com/haber/" + Model.id;
+}
+<script type="application/ld+json">
+    {
+    "@@context": "http://schema.org",
+    "@@type": "NewsArticle",
+    "headline": "@Model.baslik",
+    "dateline": "@Model.konu",
+    "image": "@Model.resimuri",
+    "datePublished": "@Model.yayıntarihi",
+    "description": "@Model.aciklama",
+    "articleBody": "@Model.icerik",
+    "author":"@host",
+    "publisher":"Habermiyok",
+    "url":"@urinow"
+    }
+</script>
+<link href="@Url.Content("https://fonts.googleapis.com/css?family=Ubuntu:400,700%7CLato:300,400")" rel="stylesheet" />
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@twittersite" />
+<meta name="twitter:creator" content="@host" />
+<meta property="og:url" content="@urinow" />
+<meta property="og:title" content="@Model.baslik" />
+<meta property="og:description" content="@Model.aciklama" />
+<meta property="og:image" content="@Model.resimuri" />
+
+<meta property="og:url" content="@urinow" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="@Model.baslik" />
+<meta property="og:description" content="@Model.aciklama" />
+<meta property="og:image" content="@Model.resimuri" />
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/tr_TR/sdk.js#xfbml=1&version=v3.0';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- SECTION -->
+<div class="section">
+    <!-- CONTAINER -->
+    <div class="container">
+        <!-- ROW -->
+        <div class="row">
+            <!-- Main Column -->
+            <div class="col-md-8">
+
+                <!-- ARTICLE POST -->
+                <article class="article article-post">
+
+                    <div class="article-main-img">
+                        <img src="@Html.DisplayFor(model => model.resimuri)" alt="">
+                    </div>
+                    <div class="article-body">
+                        <ul class="article-info">
+                            <li class="article-category"><a>@Html.DisplayFor(model => model.konu)</a></li>
+                            <li class="article-type"  ><img src="@kaynak" style="height:50px ;width:auto"></img></li>
+                        </ul>
+                        <h1 class="article-title">@Html.DisplayFor(model => model.baslik)</h1>
+                        <ul class="article-meta">
+                            <li><i class="fa fa-clock-o"></i> @Html.DisplayFor(model => model.yayıntarihi)</li>
+                            <li><i class="fa fa-upload"></i> @Html.DisplayFor(model => model.kaynak)</li>
+                        </ul>
+                        @{
+                            string[] parcalar;
+                            parcalar = Model.icerik.Split('.');
+                            foreach (var item in parcalar)
+                            {
+                                <p><font face="Verdana" color="black"> &nbsp @item </font> </p>
+                            }
+                        }
+                        <ul class="article-info">
+                            <li class="article-category"><a href="@Model.originnew" target="_blank">Haberin tamamını kaynağından okumak için</a></li>
+                            
+                        </ul>
+
+                    </div>
+                </article>
+                <!-- /ARTICLE POST -->
+                <!-- Ana haberin altındaki kayan -->
+                <div id="owl-carousel-1" class="owl-carousel owl-theme center-owl-nav">
+                    @{
+                        var collection = ViewData["sonrahaberler"];
+                        var collectionilk = ViewData["ilkhaberler"];
+
+                        if ((collection as List<obajans.Models.haber>).Count() > 0)
+                        {
+                            foreach (var item in collection as List<obajans.Models.haber>)
+                            {
+                                Uri myUri2 = new Uri(item.originnew);
+                                string host2 = myUri2.Host;
+                                string kaynak2 = "https://logo.clearbit.com/" + host2;
+                                 <!-- ARTICLE -->
+                                <article class="article thumb-article">
+                                    <div class="article-img">
+                                        <img width="300" height="225" src="@item.resimuri" href="~/haber/@item.id">
+                                    </div>
+                                    <div class="article-body">
+                                        <ul class="article-info">
+                                            <li class="article-category"><a>@item.konu</a></li>
+                                            <li class="article-type"><img src="@kaynak2"></img></li>
+                                            <li style="color:whitesmoke"> @item.kaynak</li>
+                                        </ul>
+                                        <h8 class="article-title"><a href="~/haber/@item.id">@item.baslik</a></h8>
+                                        <ul class="article-meta">
+                                            <li><i class="fa fa-clock-o"></i> @item.yayıntarihi</li>
+                                        </ul>
+                                    </div>
+                                </article>
+                                  <!-- /ARTICLE -->
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in collectionilk as List<obajans.Models.haber>)
+                            {
+                                Uri myUri2 = new Uri(item.originnew);
+                                string host2 = myUri2.Host;
+                                string kaynak2 = "https://logo.clearbit.com/" + host2;
+                                 <!-- ARTICLE -->
+                                <article class="article thumb-article">
+                                    <div class="article-img">
+                                        <img width="300" height="225" src="@item.resimuri" href="~/haber/@item.id">
+                                    </div>
+                                    <div class="article-body">
+                                        <ul class="article-info">
+                                            <li class="article-category"><a>@item.konu</a></li>
+                                            <li class="article-type"><img src="@kaynak2"></img></li>
+                                            <li style="color:whitesmoke"> @item.kaynak</li>
+                                        </ul>
+                                        <h8 class="article-title"><a href="~/haber/@item.id">@item.baslik</a></h8>
+                                        <ul class="article-meta">
+                                            <li><i class="fa fa-clock-o"></i> @item.yayıntarihi</li>
+                                        </ul>
+                                    </div>
+                                </article>
+                                  <!-- /ARTICLE -->
+                            }
+                        }
+
+                    }
+                   
+                </div>
+                <!-- /Owl Carousel 1 -->
+            </div>
+            <!-- /Main Column -->
+            <!-- Aside Column -->
+            <div class="col-md-4">
+                <!-- Ad widget -->
+                <div class="widget center-block hidden-xs">
+                    <img class="center-block" src="http://lotroplayers.com/wp-content/uploads/2017/02/Mumak-armoured-3-300x580.jpg">
+                </div>
+                <!-- /Ad widget -->
+              
+                <!-- social widget -->
+                <div class="widget social-widget">
+                    <div class="widget-title">
+                        <h2 class="title" style="color: crimson">Diğerlerinin Haberi Mi Yok?</h2>
+                        <h2 class="title" style="color: crimson">Paylaşsana</h2>
+                    </div>
+                    <ul>
+
+                        
+                        <li><a href="@twitter" target="_blank" class="twitter"><i class="fa fa-twitter"></i><br><span>Twitter</span></a></li>
+                        <li><a href="@google" target="_blank" class="google"><i class="fa fa-google"></i><br><span>Google+</span></a></li>
+                        <li><a href="@whatsapp" target="_blank" class="instagram" style="background-color:#25d366"><i class="fa fa-whatsapp"></i><br><span>Whatsapp</span></a></li>
+                    </ul>
+
+                </div>
+                <!-- /social widget -->
+                <!-- article widget -->
+                <div class="widget">
+                    
+                    <!-- Kenardaki sosyal medya altı -->
+                    @{
+                        var collection2 = ViewData["oncehaberler"];
+                        var collectionson = ViewData["sonhaberler"];
+                        if ((collection2 as List<obajans.Models.haber>).ToArray().Count() > 0)
+                        {
+                            <div class="widget-title">
+                                <h2 class="title" style="color: crimson">Eski haberler</h2>
+                            </div>
+                        }
+
+                        if ((collection2 as List<obajans.Models.haber>).Count() > 0)
+                        {
+                            foreach (var item in collection2 as List<obajans.Models.haber>)
+                            {
+                                 <!-- ARTICLE -->
+                                <article class="article widget-article">
+                                    <div class="article-img">
+                                        <a href="#">
+                                            <img src="@item.resimuri" href="~/haber/@item.id">
+                                        </a>
+                                    </div>
+                                    <div class="article-body">
+                                        <h4 class="article-title"><a href="~/haber/@item.id">@item.baslik</a></h4>
+                                        <ul class="article-meta">
+                                            <li><i class="fa fa-clock-o"></i>@item.yayıntarihi</li>
+                                        </ul>
+                                    </div>
+                                </article>
+                               <!-- /ARTICLE -->
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item2 in collectionson as List<obajans.Models.haber>)
+                            {
+                               
+                                <article class="article widget-article">
+                                    <div class="article-img">
+                                        <a href="#">
+                                            <img src="@item2.resimuri" href="~/haber/@item2.id">
+                                        </a>
+                                    </div>
+                                    <div class="article-body">
+                                        <h4 class="article-title"><a href="~/haber/@item2.id">@item2.baslik</a></h4>
+                                        <ul class="article-meta">
+                                            <li><i class="fa fa-clock-o"></i>@item2.yayıntarihi</li>
+                                        </ul>
+                                    </div>
+                                </article>
+                                <!-- /ARTICLE -->
+                                }
+                        }
+                       
+                    }
+                    <!-- Kenardaki sosyal medya altı -->
+                </div>
+                <!-- /article widget -->
+            
+            </div>
+            <!-- /Aside Column -->
+        </div>
+        <!-- /ROW -->
+    </div>
+    <!-- /CONTAINER -->
+</div>
+<!-- /SECTION -->
+
+
+
+ 

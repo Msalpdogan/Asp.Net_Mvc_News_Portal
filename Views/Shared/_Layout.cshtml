@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="www.habermiyok.com-Türkiye hakkında yapılan yabancı haberlerin Türkçe kaynağı">
+    <meta name="keywords" content="Haber,Siyasi,Yabanci,Türkiyeyle ilgili haberler,cevirihaber,reklamsizhaber,ucretsizhaber,tarafsiz,ingilizhaber,fransız haber">
+    <meta name="author" content="M S Alpdogan">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  @ViewBag.title</title>
+    <link runat="server" rel="shortcut icon" href="~/Content/img/myicon.ico" type="image/x-icon" />
+    <link runat="server" rel="icon" href="~/Content/img/myico.ico" type="image/x-icon" />
+            <link href="@Url.Content("~/Content/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+             <link href="@Url.Content("~/Content/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+             <link href="@Url.Content("~/Content/css/owl.carousel.css")" rel="stylesheet" type="text/css" />
+             <link href="@Url.Content("~/Content/css/owl.theme.default.css")" rel="stylesheet" type="text/css" />
+             <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" />
+             <link href="@Url.Content("https://fonts.googleapis.com/css?family=Ubuntu:400,700%7CLato:300,400")" rel="stylesheet" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-122858950-1"></script>
+    <script>
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-122858950-1');
+    </script>
+    <script type="application/ld+json">
+        {
+        "@@context": "http://schema.org",
+        "@@type": "Habermiyok",
+        "url": "http://www.habermiyok.com",
+        "logo": "http://www.habermiyok.com/Content/img/loogo.jpg"
+        }
+    </script>
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/owl.carousel.min.js"></script>
+    <script src="~/Content/js/main.js"></script>
+   
+       </head>
+	<body>
+	@{  string hepsistatus = ""; string siyasetstatus = ""; string sporstatus = ""; string parastatus = ""; string farklistatus = "";
+        try
+        {
+            if (ViewData["Category"].ToString().ToLower() == "hepsi")
+            {
+                hepsistatus = "active";
+            }
+            if (ViewData["Category"].ToString().ToLower() == "siyaset")
+            {
+                siyasetstatus = "active";
+            }
+            if (ViewData["Category"].ToString().ToLower() == "spor")
+            {
+                sporstatus = "active";
+            }
+            if (ViewData["Category"].ToString().ToLower() == "para")
+            {
+                parastatus = "active";
+            }
+            if (ViewData["Category"].ToString().ToLower() == "farkli")
+            {
+                farklistatus = "active";
+            }
+        }
+        catch (Exception)
+        {
+
+            hepsistatus = ""; siyasetstatus = ""; sporstatus = ""; parastatus = ""; farklistatus = "";
+
+        }
+
+
+
+	}
+		<!-- Header -->
+		<header id="header">
+	
+            
+			<div id="nav-header">
+				<div class="container">
+                   
+					<nav id="main-nav">
+						
+                       
+						<ul class="main-nav nav navbar-nav">
+                            
+							<li class="@hepsistatus"><a href="~/">Anasayfa</a></li>
+							<li class="@siyasetstatus"><a href="~/Siyaset/1">Siyaset</a></li>
+							<li class="@sporstatus"><a href="~/Spor/1">Spor</a></li>
+							<li class="@parastatus"><a href="~/Para/1">Para</a></li>
+							<li class="@farklistatus"><a href="~/Farkli/1">Farklı</a></li>
+                           
+						</ul>
+					</nav>
+					<div class="button-nav">
+						<button class="nav-collapse-btn"><i class="fa fa-bars"></i></button>
+					</div>
+				</div>
+			</div>
+			<!-- /Nav Header -->
+		</header>
+		<!-- /Header -->
+		
+     @RenderBody()
+       <!-- FOOTER -->
+		<footer id="footer">
+			<!-- Top Footer -->
+			<div id="top-footer" class="section">
+				<!-- CONTAINER -->
+				<div class="container">
+					<!-- ROW -->
+					<div class="row">
+						<!-- Column 1 -->
+						<div class="col-md-4">
+							
+							
+							<!-- footer social -->
+							<div class="footer-widget social-widget">
+								<div class="widget-title">
+									<h3 class="title">Bizi takip etsene</h3>
+								</div>
+								<ul>
+                                   <li>
+                                       <a href="https://twitter.com/Habermiyok" class="twitter"><i class="fa fa-twitter"></i></a>
+                                   </li>
+									
+								</ul>
+							</div>
+							<!-- /footer social -->
+							
+							
+						</div>
+                        <div class="col-md-4">
+                            </div>
+
+                            <!-- /Column 1 -->
+                            <!-- Column 2 -->
+                            <div class="col-md-4">
+                                <!-- footer about -->
+                                <div class="footer-widget about-widget">
+                                    <div class="footer-logo">
+                                        <a href="~/" class="logo"><img src="~/Content/img/loogo.jpg" style="max-height:150px ; width:auto" alt=""></a>
+                                        <p>Yabancı ajansların türkiyeyle ilgili haberleri - </p>
+                                        <p>Yabancı haberlerin Türkçe kaynağı </p>
+                                    </div>
+                                </div>
+                                <!-- /footer about -->
+
+                            </div>
+                            <!-- /Column 3 -->
+                        </div>
+					<!-- /ROW -->
+				</div>
+				<!-- /CONTAINER -->
+			</div>
+			<!-- /Top Footer -->
+			
+			<!-- Bottom Footer -->
+			<div id="bottom-footer" class="section">
+				<!-- CONTAINER -->
+				<div class="container">
+					<!-- ROW -->
+					<div class="row">
+						<!-- footer links -->
+						<div class="col-md-6 col-md-push-6">
+							<ul class="footer-links">
+								<li><a href="~/icerik/hakkimizda">Hakkımızda</a></li>
+							</ul>
+						</div>
+						<!-- /footer links -->
+						
+						<!-- footer copyright -->
+						<div class="col-md-6 col-md-pull-6">
+							<div class="footer-copyright">
+								<span>@DateTime.Now.Year   Tüm hakları saklıdır.</span>
+							</div>
+						</div>
+						<!-- /footer copyright -->
+					</div>
+					<!-- /ROW -->
+				</div>
+				<!-- /CONTAINER -->
+			</div>
+			<!-- /Bottom Footer -->
+		</footer>
+		<!-- /FOOTER -->
+        <!-- Back to top -->
+        <div id="back-to-top"></div>
+        <!-- Back to top -->
+        <script src="~/Content/js/jquery.min.js"></script>
+        <script src="~/Content/js/bootstrap.min.js"></script>
+        <script src="~/Content/js/owl.carousel.min.js"></script>
+        <script src="~/Content/js/main.js"></script>
+    </body>
+</html>
